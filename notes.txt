@@ -20,3 +20,9 @@ in other browsers, great.
 * I'm trying to keep the implementation clean and modular. I've waded
   through a bunch of other (non-XML) rich text editors and it hurt my
   head. I hope this one will be different.
+
+Small jobs list:
+
+* Support loading an XML document via JS
+* Allow spacer elements in the buttonbar
+* Allow creation of new paragraphs (may be a big job)
