@@ -8,8 +8,10 @@ function getDoc (url) {
 
 var config;
 
-makeAButton = {
-    xul: function (buttonX) {
+makeUIElement = {};
+
+makeUIElement.xul = {
+    button: function (buttonX) {
         var button = document.createElement("button");
         button.makesElement = buttonX.getAttribute("element");
         if (buttonX.getAttribute("image")) 
@@ -18,7 +20,11 @@ makeAButton = {
             button.setAttribute("label", buttonX.getAttribute("name"));
         return button;
     },
-    html: function(buttonX) {
+    spacer: function() { }
+};
+
+makeUIElement.html = {
+    button: function(buttonX) {
         var button = document.createElement("button");
         if (buttonX.getAttribute("image")) {
             var img = document.createElement("img");
@@ -27,6 +33,12 @@ makeAButton = {
         } else 
             button.appendChild(document.createTextNode(buttonX.getAttribute("name")));
         return button;
+    },
+    spacer: function() {
+        var span = document.createElement("span");
+        span.appendChild(document.createTextNode(" | "));
+        span.setAttribute("style", "margin:20px");
+        return span;
     }
 }; 
 
@@ -45,17 +57,26 @@ setButtonAction = {
     }
 };
 
+function intuitUIClass() {
+    return "html"; // XUL is broken right now
+}
+
 function addButtons() {
     var buttonbox = document.getElementById("toptoolbar");
     var xul = (document.documentElement.tagName.search(/window/i) != -1);
-    var buttons = config.getElementsByTagName("button");
+    var buttons = (config.getElementsByTagName("buttons"))[0].childNodes;
+    var uiclass = intuitUIClass();
     for (var i=0; i < buttons.length; i++) {
         var buttonConfig = buttons.item(i);
-        var button = makeAButton[xul ? "xul" : "html"](buttonConfig);
-        var action = buttonConfig.getAttribute("action") || "surround";
-        if (!setButtonAction[action]) { alert("Unknown action '"+action+"' for button '"+buttonConfig.getAttribute("name")+"'"); return; }
-        setButtonAction[action](buttonConfig, button);
-        buttonbox.appendChild(button);
+        if (buttonConfig.tagName == "button") {
+            var button = makeUIElement[uiclass]["button"](buttonConfig);
+            var action = buttonConfig.getAttribute("action") || "surround";
+            if (!setButtonAction[action]) { alert("Unknown action '"+action+"' for button '"+buttonConfig.getAttribute("name")+"'"); return; }
+            setButtonAction[action](buttonConfig, button);
+            buttonbox.appendChild(button);
+        } else if (buttonConfig.tagName == "spacer") {
+            buttonbox.appendChild(makeUIElement[uiclass]["spacer"]());
+        }
     }
 }
 

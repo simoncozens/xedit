@@ -2,6 +2,9 @@
     <stylesheet href="dummy.css"/>
     <buttons>
         <button name="1" element="head1" action="replace"/>
+        <button name="2" element="head2" action="replace"/>
+        <button name="3" element="head3" action="replace"/>
+        <spacer/>
         <button name="italic" element="italic" image="i.png" action="surround"/>
         <button name="bold" element="embolden" />
     </buttons>
