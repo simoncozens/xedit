@@ -2,6 +2,6 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="dummy.css" type="text/css"?>
 <test>
-    <paragraph> This is a paragraph with <italic>some
-    emphasised</italic> text. </paragraph>
+    <paragraph> This is a paragraph with <italic>some emphasised</italic> text. </paragraph>
+    <paragraph> Some more text </paragraph>
 </test>

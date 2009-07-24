@@ -2,7 +2,7 @@
     <head>
     <script src="xedit.js"></script>
     </head>
-<body onload="startXEdit('dummy-config.xml')">
+<body onload="startXEdit('dummy-config.xml'); loadDoc('dummy.xml')">
 
 <div id="toptoolbox">
     <div id="toptoolbar"/>
@@ -10,10 +10,6 @@
 
 <p> Before </p>
     <div id="edit" contenteditable="true" style="border:1px solid black">
-<test>
-    <paragraph> This is a paragraph with <italic>some emphasised</italic> text. </paragraph>
-    <paragraph> Some more text </paragraph>
-</test>
 </div>
 <p> After </p>
     </body>

@@ -78,6 +78,14 @@ function startXEdit(configurl) {
   addButtons();
 }
 
+function loadDoc(docurl) {
+    var doc = getDoc(docurl).documentElement;
+    // XXX - set the edit element another way
+    var editfield = document.getElementById("edit");
+    while (editfield.childNodes.length > 0) editfield.removeChild(editfield.firstChild)
+    editfield.appendChild(doc);
+}
+
 function makeSelection (element) {
     var s = window.getSelection();
     if (s.isCollapsed) return;

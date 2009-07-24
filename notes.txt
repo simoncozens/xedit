@@ -23,6 +23,5 @@ in other browsers, great.
 
 Small jobs list:
 
-* Support loading an XML document via JS
 * Allow spacer elements in the buttonbar
 * Allow creation of new paragraphs (may be a big job)
