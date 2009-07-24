@@ -1,0 +1,5 @@
+test { margin: 10px }
+paragraph { display: block; margin-bottom: 10px; }
+italic { font-style: italic; display: inline }
+embolden { font-weight: bold; display:inline }
+head1 { font-size: 120%; font-weight: bold; font-family: sans-serif; display: block }
