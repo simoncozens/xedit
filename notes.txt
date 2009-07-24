@@ -1,0 +1,22 @@
+The plan is to produce a rich text editor widget in Javascript which
+allows you to write arbitrary XML, displayed with CSS.
+
+Development is only targeting Firefox >= 3.0 at the moment. If it works
+in other browsers, great.
+
+* Open xedit.html in your browser to get started.
+
+* We're using contenteditable because designmode on iframes does require
+  HTML. contenteditable can be used on any DOM.
+
+* The editor gets configured through an XML config file (which tells you
+  which buttons to put on the toolbar and what they do) and a CSS file
+  which tells how elements are seen. The CSS file also determines e.g.
+  if an element is block-level. 
+
+* It's designed to support multiple UIs - plain HTML, XUL, any HTML widget
+  library.
+
+* I'm trying to keep the implementation clean and modular. I've waded
+  through a bunch of other (non-XML) rich text editors and it hurt my
+  head. I hope this one will be different.
