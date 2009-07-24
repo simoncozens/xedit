@@ -65,7 +65,6 @@ function appendCSS() {
     var link = document.createElement("link");
     for (var sNo = 0; sNo < styles.length; sNo++) {
         var s = styles[sNo];
-        alert(s);
         link.setAttribute("href", s.getAttribute("href"));
         link.setAttribute("type", "text/css");
         link.setAttribute("rel", "stylesheet");
