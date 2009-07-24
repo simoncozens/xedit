@@ -8,55 +8,6 @@ function getDoc (url) {
 
 var config;
 
-makeUIElement = {};
-
-makeUIElement.xul = {
-    button: function (buttonX) {
-        var button = document.createElement("button");
-        button.makesElement = buttonX.getAttribute("element");
-        if (buttonX.getAttribute("image")) 
-            button.setAttribute("image", buttonX.getAttribute("image"));
-        else
-            button.setAttribute("label", buttonX.getAttribute("name"));
-        return button;
-    },
-    spacer: function() { }
-};
-
-makeUIElement.html = {
-    button: function(buttonX) {
-        var button = document.createElement("button");
-        if (buttonX.getAttribute("image")) {
-            var img = document.createElement("img");
-            img.setAttribute("src", buttonX.getAttribute("image"));
-            button.appendChild(img);
-        } else 
-            button.appendChild(document.createTextNode(buttonX.getAttribute("name")));
-        return button;
-    },
-    spacer: function() {
-        var span = document.createElement("span");
-        span.appendChild(document.createTextNode(" | "));
-        span.setAttribute("style", "margin:20px");
-        return span;
-    }
-}; 
-
-setButtonAction = {
-    surround: function(buttonX, button) {
-        button.makesElement = buttonX.getAttribute("element");
-        button.addEventListener("click", function () {
-            makeSelection(this.makesElement) 
-        }, true);
-    },
-    replace: function(buttonX, button) {
-        button.makesElement = buttonX.getAttribute("element");
-        button.addEventListener("click", function () {
-            replaceHeadNode(this.makesElement) 
-        }, true);
-    }
-};
-
 function intuitUIClass() {
     return "html"; // XUL is broken right now
 }
@@ -105,28 +56,4 @@ function loadDoc(docurl) {
     var editfield = document.getElementById("edit");
     while (editfield.childNodes.length > 0) editfield.removeChild(editfield.firstChild)
     editfield.appendChild(doc);
-}
-
-function makeSelection (element) {
-    var s = window.getSelection();
-    if (s.isCollapsed) return;
-    if (s.focusNode != s.anchorNode) { alert("Cannae do it"); return }
-    var r = s.getRangeAt(0);
-    r.surroundContents(document.createElement(element));
-    document.getElementById('edit').focus();
-}
-
-function paragraphLevelElement(p) {
-    return p.nodeType==1 && document.defaultView.getComputedStyle(p, "").display== "block";
-}
-
-function replaceHeadNode (element) {
-    var s = window.getSelection();
-    var p = s.getRangeAt(0).startContainer;
-    while (p && ! paragraphLevelElement(p)) { p = p.parentNode }
-    var children = p.childNodes;
-    var repl = document.createElement(element);
-    while (children.length > 0) repl.appendChild(children[0]);
-    p.parentNode.insertBefore(repl, p);
-    p.parentNode.removeChild(p);
 }
