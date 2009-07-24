@@ -81,7 +81,7 @@ function replaceHeadNode (element) {
     while (p && ! paragraphLevelElement(p)) { p = p.parentNode }
     var children = p.childNodes;
     var repl = document.createElement(element);
-    for (var i=0; i < children.length; i++) repl.appendChild(children[i]);
+    while (children.length > 0) repl.appendChild(children[0]);
     p.parentNode.insertBefore(repl, p);
     p.parentNode.removeChild(p);
 }
