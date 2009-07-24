@@ -2,11 +2,13 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="xul.css" type="text/css"?>
 <window id="xedit" title="Xedit Mozilla XML Editor"
+    xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-<toolbox id="toptoolbox">
-    <toolbar id="toptoolbar"/>
-</toolbox>
-<script src="xedit.js"/>
-<iframe src="dummy.xml" id="edit"/>
-<script>addButtons()</script>
+<head/>
+<script src="xedit.js.min"/>
+<html:div id="edit" contenteditable="true" style="border:1px solid black"> </html:div>
+<script>startXEdit("dummy-config.xml"); loadDoc("dummy.xml")</script>
 </window>
+
+
+

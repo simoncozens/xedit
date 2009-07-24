@@ -1,8 +1,14 @@
+function intuitUIClass() {
+    if (document.documentElement.tagName == "window")
+        return "xul";
+    return "html"; 
+}
+
 makeUIElement = {};
 
 makeUIElement.xul = {
     button: function (buttonX) {
-        var button = document.createElement("button");
+        var button = document.createElement("toolbarbutton");
         button.makesElement = buttonX.getAttribute("element");
         if (buttonX.getAttribute("image")) 
             button.setAttribute("image", buttonX.getAttribute("image"));
@@ -10,7 +16,17 @@ makeUIElement.xul = {
             button.setAttribute("label", buttonX.getAttribute("name"));
         return button;
     },
-    spacer: function() { }
+    spacer: function() { 
+        return document.createElement("toolbarspacer");
+    },
+    toolbar: function() { 
+        var toolbar = document.createElement("toolbar");
+        var toolbox = document.createElement("toolbox");
+        toolbox.appendChild(toolbar);
+        var edit = document.getElementById("edit");
+        edit.parentNode.insertBefore(toolbox,edit);
+        return toolbar;
+    }
 };
 
 makeUIElement.html = {

@@ -8,10 +8,6 @@ function getDoc (url) {
 
 var config;
 
-function intuitUIClass() {
-    return "html"; // XUL is broken right now
-}
-
 function addButtons() {
     var uiclass = intuitUIClass();
     var buttonbox = makeUIElement[uiclass]["toolbar"]();
