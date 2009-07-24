@@ -1,10 +1,44 @@
 <html>
     <head>
     <script src="xedit.js.min"></script>
+    <style>
+    h1 { font-family: Optima, sans-serif; font-style: italic; text-align: right; background-color: #45597f; margin: 0; padding: 20px 50px 20px 20px; color:#b7bdd5; }
+    html { background-color: #b7bdd5; margin: 0; padding: 0; }
+    body { margin: 0; }
+    .main { background-color: #fff; margin-left: 10%; margin-right: 10px; margin-top: 30px; padding: 20px; font-family: sans-serif; }
+    .editwrapper { background-color: #6d8cc7; padding: 10px; color: #fff; }
+    #edit { padding: 10px; }
+    pre { background-color: #ddd; margin-left: 20px; border: 1px dotted black min-height: 120px; }
+    </style>
     </head>
 <body onload="startXEdit('dummy-config.xml'); loadDoc('dummy.xml')">
 
-    <div id="edit" contenteditable="true" style="border:1px solid black">
+<h1> XEdit </h1>
+<div class="wrapper">
+    <div class="main">
+        <p> <b>XEdit is a generic XML editor written in Javascript.</b> </p>
+        <p> Most WYSIWYG rich text editors support HTML or XHTML; XEdit
+        is written for the case where you want to use a web interface 
+        to author documents in DocBook, DITA or any other XML schema.
+        </p>
+        <p> Here's an example of XEdit working on a document with a
+        pseudo-DocBook XML format:
+        </p>
+        <div class="editwrapper">
+            <div id="edit" contenteditable="true" style="border:1px solid black">
+            </div>
+        </div>
+        <script>function writeToPre() {
+            var pre = document.getElementById("output");
+            pre.innerHTML = "";
+            var cdata = document.createTextNode(document.getElementById("edit").innerHTML);
+            pre.appendChild(cdata);
+        }
+        </script>
+        <p> Click on the "Save" icon to write the XML output here:</p>
+        <pre id="output">
+        </pre>
+    </div>
 </div>
-    </body>
+</body>
 </html>

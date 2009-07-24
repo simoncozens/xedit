@@ -15,18 +15,19 @@ makeUIElement.xul = {
 
 makeUIElement.html = {
     button: function(buttonX) {
-        var button = document.createElement("button");
         if (buttonX.getAttribute("image")) {
             var img = document.createElement("img");
             img.setAttribute("src", buttonX.getAttribute("image"));
-            button.appendChild(img);
-        } else 
-            button.appendChild(document.createTextNode(buttonX.getAttribute("name")));
+            img.setAttribute("style", "height:30px");
+            return img;
+        } 
+        var button = document.createElement("button");
+        button.appendChild(document.createTextNode(buttonX.getAttribute("name")));
         return button;
     },
     spacer: function() {
         var span = document.createElement("span");
-        span.appendChild(document.createTextNode(" | "));
+        span.appendChild(document.createTextNode("  "));
         span.setAttribute("style", "margin:20px");
         return span;
     },

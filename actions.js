@@ -10,6 +10,10 @@ setButtonAction = {
         button.addEventListener("click", function () {
             replaceHeadNode(this.makesElement) 
         }, true);
+    },
+    javascript: function(buttonX, button) {
+        var js = buttonX.getAttribute("function");
+        button.addEventListener("click", function() { eval(js) }, true);
     }
 };
 

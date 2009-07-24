@@ -1,11 +1,13 @@
 <xedit>
     <stylesheet href="dummy.css"/>
     <buttons>
-        <button name="1" element="head1" action="replace" image="1.gif"/>
-        <button name="2" element="head2" action="replace" image="2.gif"/>
-        <button name="3" element="head3" action="replace" image="3.gif"/>
+        <button name="1" element="head1" action="replace" image="icons/1.gif"/>
+        <button name="2" element="head2" action="replace" image="icons/2.gif"/>
+        <button name="3" element="head3" action="replace" image="icons/3.gif"/>
         <spacer/>
-        <button name="italic" element="italic" image="i.gif" action="surround"/>
-        <button name="bold" element="embolden" image="b.gif" />
+        <button name="italic" element="italic" image="icons/i.gif" action="surround"/>
+        <button name="bold" element="embolden" image="icons/b.gif" />
+        <spacer/>
+        <button name="save" image="icons/save.gif" action="javascript" function="writeToPre()"/>
     </buttons>
 </xedit>
