@@ -13,10 +13,10 @@ function intuitUIClass() {
 }
 
 function addButtons() {
-    var buttonbox = document.getElementById("toptoolbar");
+    var uiclass = intuitUIClass();
+    var buttonbox = makeUIElement[uiclass]["toolbar"]();
     var xul = (document.documentElement.tagName.search(/window/i) != -1);
     var buttons = (config.getElementsByTagName("buttons"))[0].childNodes;
-    var uiclass = intuitUIClass();
     for (var i=0; i < buttons.length; i++) {
         var buttonConfig = buttons.item(i);
         if (buttonConfig.tagName == "button") {

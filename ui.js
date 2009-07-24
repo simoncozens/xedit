@@ -29,6 +29,13 @@ makeUIElement.html = {
         span.appendChild(document.createTextNode(" | "));
         span.setAttribute("style", "margin:20px");
         return span;
+    },
+    toolbar: function() {
+        var toolbar = document.createElement("div");
+        toolbar.setAttribute("id", "toptoolbar");
+        var edit = document.getElementById("edit");
+        edit.parentNode.insertBefore(toolbar,edit);
+        return toolbar;
     }
 }; 
 
