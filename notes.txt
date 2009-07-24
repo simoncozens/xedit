@@ -27,3 +27,4 @@ Small jobs list:
 * Allow creation of new paragraphs (may be a big job)
 * Make inter-element surrounding work (may be a big job)
 * Error checking everywhere
+* Split out the JS files into functional components.
