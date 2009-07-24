@@ -1,4 +1,5 @@
 <xedit>
+    <stylesheet href="dummy.css"/>
     <buttons>
         <button name="1" element="head1" action="replace"/>
         <button name="italic" element="italic" image="i.png" action="surround"/>

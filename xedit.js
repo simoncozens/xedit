@@ -6,6 +6,8 @@ function getDoc (url) {
   return myXMLHTTPRequest.responseXML;
 }
 
+var config;
+
 makeAButton = {
     xul: function (buttonX) {
         var button = document.createElement("button");
@@ -46,7 +48,6 @@ setButtonAction = {
 function addButtons() {
     var buttonbox = document.getElementById("toptoolbar");
     var xul = (document.documentElement.tagName.search(/window/i) != -1);
-    var config = getDoc("dummy-config.xml").documentElement;
     var buttons = config.getElementsByTagName("button");
     for (var i=0; i < buttons.length; i++) {
         var buttonConfig = buttons.item(i);
@@ -58,7 +59,23 @@ function addButtons() {
     }
 }
 
-function sortOut() {
+function appendCSS() {
+    var styles = config.getElementsByTagName("stylesheet");
+    var head = (document.getElementsByTagName("head"))[0];
+    var link = document.createElement("link");
+    for (var sNo = 0; sNo < styles.length; sNo++) {
+        var s = styles[sNo];
+        alert(s);
+        link.setAttribute("href", s.getAttribute("href"));
+        link.setAttribute("type", "text/css");
+        link.setAttribute("rel", "stylesheet");
+        head.appendChild(link);
+    }
+}
+
+function startXEdit(configurl) {
+  config = getDoc(configurl).documentElement;
+  appendCSS();
   addButtons();
 }
 
