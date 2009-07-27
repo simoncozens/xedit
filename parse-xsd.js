@@ -44,6 +44,8 @@ var handler = {
     "xs:complexType": function(e, root, ctx) { return __basehandler(e,root,ctx,root["types"]); },
     "xs:simpleType": function(e, root, ctx) { return __basehandler(e,root,ctx,root["types"]); },
     "xs:attribute": function(e,root,ctx) { return __contexthandler(e,root,ctx,"attribute", "Attribute"); },
+    "xs:annotation": function(e,root,ctx) {},
+    "xs:description": function(e,root,ctx) {},
     "xs:choice": function(el, root, ctx) { 
         ctx["choice"] = __arrayhandler(el, root, ctx);
         return ctx["choice"];
