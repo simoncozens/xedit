@@ -16,7 +16,6 @@ __basehandler = function(e, root, ctx, where) {
     attribsToJS(e,thisNode);
     visitChildren(e, root, thisNode);
     jsdump(thisNode);
-    thisNode["_tag"] = e.tagName;
     if (where) where[e.getAttribute("name")]  = thisNode;
     if (!where && ctx) { ctx[e.tagName] = thisNode }
     return thisNode;
@@ -42,7 +41,7 @@ function __arrayhandler(el, root, ctx, type) {
 
 var handler = {
     "xs:element": function (e,root,ctx) {
-        return __basehandler(e,root,ctx,root["elements"]);
+        return __contexthandler(e,root,ctx,"elements");
     },
     "xs:attributeGroup": function(e, root, ctx) { return __basehandler(e,root,ctx,root["attributegroups"]); },
     "xs:group": function(e, root, ctx) { return __basehandler(e,root,ctx,root["groups"]); },
@@ -71,9 +70,9 @@ var handler = {
 };
 
 function attribsToJS(e, n) {
+    n["_tag"] = e.tagName;
     if (!e.attributes) return;
     for(var i = 0; i < e.attributes.length; i++) {
-        if (e.attributes[i].nodeName == "name") continue;
         n[e.attributes[i].nodeName] = e.attributes[i].nodeValue;
     }
 }
@@ -91,8 +90,9 @@ function visitChildren (el, root, ctx) {
 
 function doParse(url) {
     var doc = getDoc(url);
-    var root = {elements: {}, types: {}, groups: {}, attributegroups: {} };
+    var root = {elements: {}, types: {}, groups: {}, attributegroups:
+    {}, topstuff: {} };
     var el = doc.documentElement;
-    visitChildren(el, root);
+    visitChildren(el, root, root["topstuff"]);
     jsdump(root);
 }
