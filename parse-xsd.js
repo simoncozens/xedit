@@ -14,6 +14,7 @@ __basehandler = function(e, root, ctx, where) {
     var thisNode = where[e.getAttribute("name")] = {};
     attribsToJS(e,thisNode);
     visitChildren(e, root, thisNode);
+    return thisNode;
 };
 
 __contexthandler = function(e, root, ctx, where, type) {
@@ -23,27 +24,33 @@ __contexthandler = function(e, root, ctx, where, type) {
     attribsToJS(e,thisNode);
     visitChildren(e, root, thisNode);
     jsdump(root);
+    return thisNode;
+}
+function __arrayhandler(el, root, ctx, type) {
+    var cn = el.childNodes;
+    var a = [];
+    for (var i= 0; i < cn.length; i++) { var e = cn[i];
+        if (!e.tagName) continue;
+        a.push(handler[e.tagName](e, root,ctx));
+    }
+    return a;
 }
 
 var handler = {
     "xs:element": function (e,root,ctx) {
-        __basehandler(e,root,ctx,root["elements"]);
+        return __basehandler(e,root,ctx,root["elements"]);
     },
-    "xs:complexType": function(e, root, ctx) { __basehandler(e,root,ctx,root["types"]); },
-    "xs:simpleType": function(e, root, ctx) { __basehandler(e,root,ctx,root["types"]); },
-    "xs:attribute": function(e,root,ctx) {
-        __contexthandler(e,root,ctx,"attribute", "Attribute");
+    "xs:group": function(e, root, ctx) { return __basehandler(e,root,ctx,root["groups"]); },
+    "xs:complexType": function(e, root, ctx) { return __basehandler(e,root,ctx,root["types"]); },
+    "xs:simpleType": function(e, root, ctx) { return __basehandler(e,root,ctx,root["types"]); },
+    "xs:attribute": function(e,root,ctx) { return __contexthandler(e,root,ctx,"attribute", "Attribute"); },
+    "xs:choice": function(el, root, ctx) { 
+        ctx["choice"] = __arrayhandler(el, root, ctx);
+        return ctx["choice"];
     },
     "xs:sequence": function(el, root, ctx) {
-        var cn = el.childNodes;
-        ctx["sequence"] = [];
-        for (var i= 0; i < cn.length; i++) { var e = cn[i];
-            if (!e.tagName) continue;
-            var thisNode = {name: e.getAttribute("name")};
-            attribsToJS(e, thisNode);
-            ctx["sequence"].push(thisNode);
-        }
-        visitChildren(el, root, ctx);
+        ctx["sequence"] = __arrayhandler(el, root, ctx);
+        return ctx["sequence"];
     }
 };
 
@@ -54,7 +61,6 @@ function attribsToJS(e, n) {
         n[e.attributes[i].nodeName] = e.attributes[i].nodeValue;
     }
 }
-doParse("simple.xsd");
 
 function visitChildren (el, root, ctx) {
     var cn = el.childNodes;
@@ -70,7 +76,7 @@ function visitChildren (el, root, ctx) {
 
 function doParse(url) {
     var doc = getDoc(url);
-    var root = {elements: {}, types: {} };
+    var root = {elements: {}, types: {}, groups: {} };
     var el = doc.documentElement;
     visitChildren(el, root);
     jsdump(root);
